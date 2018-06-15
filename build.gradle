@@ -8,6 +8,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'groovy'
 }
 
 mainClassName = 'com.qhackers.djcloud.Main'
@@ -19,6 +20,11 @@ repositories {
 dependencies {
     implementation 'com.google.firebase:firebase-admin:6.2.0'
     implementation 'org.slf4j:slf4j-simple:1.7.25'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    testImplementation 'cglib:cglib-nodep:3.2.0'
+    testImplementation 'org.objenesis:objenesis:2.6'
+    implementation 'org.codehaus.groovy:groovy-all:2.4.15'
+    testImplementation 'org.spockframework:spock-core:1.1-groovy-2.4'
     testImplementation 'junit:junit:4.+'
 }
 
