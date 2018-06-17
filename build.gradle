@@ -9,6 +9,11 @@ plugins {
     id 'java'
     id 'application'
     id 'groovy'
+    id 'com.adarshr.test-logger' version '1.3.0'
+}
+
+testlogger {
+    slowThreshold 0
 }
 
 mainClassName = 'com.qhackers.djcloud.Main'

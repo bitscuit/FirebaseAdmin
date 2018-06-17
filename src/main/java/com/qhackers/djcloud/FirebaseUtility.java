@@ -22,13 +22,17 @@ public class FirebaseUtility {
 
     public FirebaseUtility() throws IOException {
         if (db == null) {
-            InputStream serviceAccount = ClassLoader.getSystemResourceAsStream("serviceAccount.json");
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setDatabaseUrl("https://dj-cloud-fdbf5.firebaseio.com").build();
-            FirebaseApp.initializeApp(options);
-            db = FirebaseDatabase.getInstance();
+            initializeFirebase();
         }
+    }
+
+    public void initializeFirebase() throws IOException {
+        InputStream serviceAccount = ClassLoader.getSystemResourceAsStream("serviceAccount.json");
+        FirebaseOptions options = new FirebaseOptions.Builder()
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                .setDatabaseUrl("https://dj-cloud-fdbf5.firebaseio.com").build();
+        FirebaseApp.initializeApp(options);
+        db = FirebaseDatabase.getInstance();
     }
 
     public void readDataOnce(String key, Consumer<String> c) {
@@ -37,9 +41,7 @@ public class FirebaseUtility {
 
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                Gson g = new Gson();
-                String j = g.toJson(snapshot.getValue());
-                c.accept(j);
+                c.accept(new Gson().toJson(snapshot.getValue()));
             }
 
             @Override
